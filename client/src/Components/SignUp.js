@@ -22,27 +22,33 @@ export default function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password !== confirmed) {
-            console.log('Passwords dont match');
-            history.push('/signup')
+            setErrors(["Passwords don't match"]);
         } else {
-            auth.signup(firstName, lastName, email, password);
-            auth.signin(email, password, () => history.replace(from));
+            auth.signup(firstName, lastName, email, password)
+              .then(errors => {
+                    if (errors.length !== 0) {
+                        setErrors(errors);
+                    } else {
+                        auth.signin(email, password, () => history.replace(from))
+                    }  
+              }) 
         }
-
     }
     
     return (
         <div className="form--centered">
                 <h2>Sign Up</h2>
-                { auth.errors ?
+                { errors.length !== 0 ? 
+                (
                     <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
-                    </ul>
+                     <h3>Validation Errors</h3>
+                     <ul>
+                       {errors.map((error, index) => <li key={index}>{error}</li>)}
+                     </ul>
                     </div>
-                :
+                ) :
+                    null
+                }
                 <form onSubmit={handleSubmit}>
                     <label>First Name</label>
                     <input onChange={(e) => setFirst(e.target.value)}id="firstName" name="firstName" type="text" value={firstName}></input>
@@ -56,7 +62,6 @@ export default function SignUp() {
                     <input onChange={(e) => setConfirmed(e.target.value)}id="confirmPassword" name="confirmPassword" type="password" value={confirmed}></input>
                     <button className="button" type="submit">Sign Up</button><button type="button" className="button button-secondary" onClick={handleCancel}>Cancel</button>
                 </form>
-                }
             <p>Already have a user account? Click here to <Link to='/signin'>sign in!</Link></p>
         </div>
     )

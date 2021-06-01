@@ -59,8 +59,10 @@ export default function UpdateCourse() {
                 if (res.status === 400) {
                     res.json().then(err => setErrors(err.errors));
                 } else if (res.status === 403) {
-                    history.push('/Forbidden')
-                } else {
+                    history.push('/Forbidden');
+                } else if (res.status === 500) {
+                    history.push('/error');
+                } else if (res.status === 204) {
                     history.push(`/courses/${id}`);
                 }
             });

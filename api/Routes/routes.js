@@ -96,7 +96,7 @@ router.post( '/courses', authenticateUser, errorHelper( async ( req, res, next )
         redirectUrl: `/courses/${newCourse.id}`
       })
     } else {
-      const error = new Error('Title must be unique');
+      const error = new Error('Title already taken by existing course. Please pick another name.');
       const errors = [error.message];
       res.status(400).json({errors})
     }

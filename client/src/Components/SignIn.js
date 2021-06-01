@@ -5,6 +5,7 @@ import { useAuth } from './use-auth';
 function SignIn() {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
     let history = useHistory();
     let location = useLocation();
     let auth = useAuth();
@@ -17,9 +18,9 @@ function SignIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
         auth.signin(userEmail, password, () => history.replace(from))
-        .then(user => {
-            if (user === null) {
-                history.push('/Unauthorized')
+        .then(errors => {
+            if (errors !== null) {
+                setErrors([errors]);
             }
         })
         .catch(error => {
@@ -31,6 +32,16 @@ function SignIn() {
     return (
         <div className="form--centered">
             <h2>Sign In</h2>
+            { errors.length !== 0 ? 
+                (
+                    <div className="validation--errors">
+                     <ul>
+                       {errors.map((error, index) => <li key={index}>{error}</li>)}
+                     </ul>
+                    </div>
+                ) :
+                    null
+                }
             <form onSubmit={handleSubmit}>
                 <label>Email Address</label>
                 <input onChange={(e) => setUserEmail(e.target.value)} id="emailAddress" name="emailAddress" type="email" value={userEmail}></input>

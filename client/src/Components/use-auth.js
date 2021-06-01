@@ -39,11 +39,11 @@ function useProvideAuth() {
                       cb();
                       Cookies.set('authenticatedUser', JSON.stringify(data), {expires: 1});
                       Cookies.set('credentials', JSON.stringify(encodedCredentials), {expires: 1});
-                      return user;
+                      return null;
                   });
               }
               else if (res.status === 401) {
-                  return null;
+                  return res.json().then(error => error.message);
               } 
               else {
                   throw new Error();
@@ -65,7 +65,13 @@ function useProvideAuth() {
         }
 
         return fetch('http://localhost:5000/api/users', options)
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.status === 400) {
+                    return res.json().then(errors => errors.errors)
+                } else {
+                    return [];
+                }
+            })
 
     }
 

@@ -25,49 +25,37 @@ function App() {
       <Router>
       <Header />
         <Switch>
-          
           <Route exact path='/' component={Courses} />
-          
           <PrivateRoute path='/courses/create'>
             <CreateCourse />
           </PrivateRoute>
-          
           <PrivateRoute path='/courses/:id/update'>
             <UpdateCourse />
           </PrivateRoute>
-          
           <Route path='/courses/:id'>
             <CourseDetail />
           </Route>
-          
           <Route path='/signin'>
             <SignIn />
           </Route>
-          
-          <Route path='/forbidden'>
-            <Forbidden />
-          </Route>
-
-          <Route path='/error'>
-            <UnhandledError />
-          </Route>
-
-          <Route path='/Unauthorized'>
-            <Unauthorized />
-          </Route>
-          
           <Route path='/signup'>
             <SignUp />
           </Route>
-          
+          <Route path='/forbidden'>
+            <Forbidden />
+          </Route>
+          <Route path='/error'>
+            <UnhandledError />
+          </Route>
+          <Route path='/Unauthorized'>
+            <Unauthorized />
+          </Route>
           <Route path='/notfound'>
             <NotFound />
           </Route>
-
           <Route>
             <NotFound />
           </Route>
-        
         </Switch>
       </Router>
     </ProvideAuth>

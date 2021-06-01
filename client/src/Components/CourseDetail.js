@@ -22,8 +22,6 @@ const CourseDetail = (props) => {
                 } else if (res.status === 404) {
                     history.push('/NotFound');    
                 } else if (res.status === 500) {
-                    const error = new Error(res.message);
-                    error.status = 500;
                     history.push('/error')
                 }
             })
