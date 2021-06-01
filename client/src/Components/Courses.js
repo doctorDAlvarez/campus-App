@@ -17,7 +17,7 @@ const Courses = () => {
             })
             .catch(err => {
                 console.log(err);
-                //history.push('/error');
+                history.push('/error');
             })
     },[history])
 
