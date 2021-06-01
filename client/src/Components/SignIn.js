@@ -18,15 +18,15 @@ function SignIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
         auth.signin(userEmail, password, () => history.replace(from))
-        .then(errors => {
+          .then(errors => {
             if (errors !== null) {
-                setErrors([errors]);
+              setErrors([errors]);
             }
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.log(error);
             history.push('/error');
-        })
+          })
     }
 
     return (

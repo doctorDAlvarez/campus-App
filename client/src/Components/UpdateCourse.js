@@ -26,6 +26,9 @@ export default function UpdateCourse() {
                     setDesc(res.description);
                     setTime(res.estimatedTime);
                     setMaterials(res.materialsNeeded);
+                    if (auth.user.id, res.userId) {
+                        history.push('/forbidden');
+                    }
                 })
             } else if (res.status === 404) {
                 history.push('/NotFound');         

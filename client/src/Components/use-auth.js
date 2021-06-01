@@ -29,10 +29,9 @@ function useProvideAuth() {
             }
         }
         
-        
-    return fetch(`http://localhost:5000/api/users`, options)
-            .then(res => {
-              if (res.status === 200) {
+        return fetch(`http://localhost:5000/api/users`, options)
+                .then(res => {
+                    if (res.status === 200) {
                       res.json().then(data => {
                       setUser(data);
                       setCredentials(encodedCredentials);
@@ -40,15 +39,13 @@ function useProvideAuth() {
                       Cookies.set('authenticatedUser', JSON.stringify(data), {expires: 1});
                       Cookies.set('credentials', JSON.stringify(encodedCredentials), {expires: 1});
                       return null;
-                  });
-              }
-              else if (res.status === 401) {
-                  return res.json().then(error => error.message);
-              } 
-              else {
-                  throw new Error();
-              }
-            })  
+                      });
+                    } else if (res.status === 401) {
+                      return res.json().then(error => error.message);
+                    } else {
+                      throw new Error();
+                    }
+                })  
     }
 
     const signup = (firstName, lastName, email, password) => {
