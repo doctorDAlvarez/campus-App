@@ -14,9 +14,7 @@ const {
       title: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: {
-          msg: 'There is a course with this title, try another'
-        },
+        unique: true,
         validate: {
           notEmpty: {
             msg: 'Provide a course title.'

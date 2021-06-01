@@ -16,9 +16,10 @@ const {
 router.get( '/users', authenticateUser, errorHelper( async ( req, res, next ) => {
   const user = req.currentUser;
   res.json( {
-    "First name": user.firstName,
-    "Last name": user.lastName,
-    "Username": user.emailAddress
+    "id": user.id,
+    "firstName": user.firstName,
+    "lastName": user.lastName,
+    "emailAddress": user.emailAddress
   } );
 } ) );
 
@@ -47,13 +48,14 @@ router.post( '/users', errorHelper( async ( req, res ) => {
 
 //GET ALL COURSES (NO AUTH)!
 router.get( '/courses', errorHelper( async ( req, res, next ) => {
+  //throw new Error('Server Error');
   const courses = await Course.findAll( {
     attributes: [ 'id', 'title', 'description', 'estimatedTime',
-      'materialsNeeded'
+      'materialsNeeded', 'userId'
     ],
     include: [ {
       model: User,
-      attributes: [ 'firstName', 'lastName', 'emailAddress' ],
+      attributes: [ 'id', 'firstName', 'lastName', 'emailAddress' ],
     } ]
   } );
   res.json( courses );
@@ -64,11 +66,11 @@ router.get( '/courses', errorHelper( async ( req, res, next ) => {
 router.get( '/courses/:id', errorHelper( async ( req, res, next ) => {
   const course = await Course.findByPk( req.params.id, {
     attributes: [ 'id', 'title', 'description', 'estimatedTime',
-      'materialsNeeded'
+      'materialsNeeded', 'userId'
     ],
     include: [ {
       model: User,
-      attributes: [ 'firstName', 'lastName', 'emailAddress' ],
+      attributes: [ 'id', 'firstName', 'lastName', 'emailAddress' ],
     } ]
   } );
   if ( course === null ) {
@@ -85,12 +87,19 @@ router.get( '/courses/:id', errorHelper( async ( req, res, next ) => {
 router.post( '/courses', authenticateUser, errorHelper( async ( req, res, next ) => {
   try {
     const user = req.currentUser;
-    const newCourse = await Course.create( { ...req.body,
+    const [newCourse, created] = await Course.findOrCreate( { where: {title: req.body.title}, defaults: {...req.body,
       userId: user.id
-    } );
-    res.status( 201 )
-      .location( `/api/courses/${newCourse.id}` )
-      .end();
+    }} );
+    if (created) {
+      res.status( 201 ).json({
+        success: true,
+        redirectUrl: `/courses/${newCourse.id}`
+      })
+    } else {
+      const error = new Error('Title must be unique');
+      const errors = [error.message];
+      res.status(400).json({errors})
+    }
     //set the location header to URI of the new course
     //201 and end.
   } catch ( error ) {

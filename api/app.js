@@ -6,6 +6,7 @@ const {
   sequelize
 } = require( './models' )
 const routes = require( './Routes/routes' );
+const cors = require('cors');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING ===
@@ -14,6 +15,20 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING ===
 // create the Express app
 const app = express();
 
+// Testing the connection and sync with database
+( async () => {
+  try {
+    await sequelize.authenticate();
+    console.log( "Connection Established with database" );
+    await sequelize.sync();
+    console.log('DATABASE SYNCED');
+  } catch ( err ) {
+    console.log( 'Error connecting', err );
+  }
+} )();
+
+//Enabling CORS for all origins!.
+app.use(cors());
 // parsing body of request to json.
 app.use( express.json() );
 
@@ -52,14 +67,3 @@ const server = app.listen( app.get( 'port' ), () => {
     `Express server is listening on port ${server.address().port}` );
 } );
 
-// Testing the connection and sync with database
-( async () => {
-  try {
-    await sequelize.authenticate();
-    console.log( "Connection Established with database" );
-    await sequelize.sync();
-    console.log( "Database Synced" );
-  } catch ( err ) {
-    console.log( 'Error connecting', err );
-  }
-} )();
