@@ -26,7 +26,7 @@ const CourseDetail = (props) => {
                 }
             })
             .catch(err => history.push('/error'))
-    },[])    
+    },[id, history])    
 
     const handleDelete = () => {
         fetch(`http://localhost:5000/api/courses/${id}`, {

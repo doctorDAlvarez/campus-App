@@ -19,7 +19,7 @@ const Courses = () => {
                 console.log(err);
                 //history.push('/error');
             })
-    },[])
+    },[history])
 
     return (
         <main>

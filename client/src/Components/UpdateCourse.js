@@ -34,7 +34,7 @@ export default function UpdateCourse() {
             } 
         })
         .catch(err => history.push('/error'))
-    },[])  
+    },[id, history])  
 
     const handleSubmit = (e) => {
         e.preventDefault()
