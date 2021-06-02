@@ -16,7 +16,7 @@ function Header() {
                         <React.Fragment>
                         <ul className="header--signedout">
                             <span>Welcome  {`${auth.user.firstName} ${auth.user.lastName}`}</span>
-                            <Link to='/' onClick={auth.signout}> Sign Out</Link>
+                            <Link to='/signout'> Sign Out</Link>
                         </ul> 
                         </React.Fragment>
                     ) : (

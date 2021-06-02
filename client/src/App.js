@@ -4,6 +4,7 @@ import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
+import Signout from './Components/Signout';
 import CreateCourse from './Components/CreateCourse';
 import PrivateRoute from './Components/PrivateRoute';
 import NotFound from './Components/NotFound';
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path='/signup'>
             <SignUp />
+          </Route>
+          <Route path='/signout'>
+            <Signout />
           </Route>
           <Route path='/forbidden'>
             <Forbidden />

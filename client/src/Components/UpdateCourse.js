@@ -26,7 +26,7 @@ export default function UpdateCourse() {
                     setDesc(res.description);
                     setTime(res.estimatedTime);
                     setMaterials(res.materialsNeeded);
-                    if (auth.user.id, res.userId) {
+                    if (auth.user.id !== res.userId) {
                         history.push('/forbidden');
                     }
                 })
@@ -37,7 +37,7 @@ export default function UpdateCourse() {
             } 
         })
         .catch(err => history.push('/error'))
-    },[id, history])  
+    },[id, history, auth.user.id])  
 
     const handleSubmit = (e) => {
         e.preventDefault()
