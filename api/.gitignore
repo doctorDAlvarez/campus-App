@@ -1,0 +1,4 @@
+/node_modules
+../api/node_modules
+/.vscode
+./api/node_modules
