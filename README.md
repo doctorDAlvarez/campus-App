@@ -1,9 +1,8 @@
 # React Client App with REST API back-end.
 
-## Final Project of my Full Stack JavaScript Tech-degree
+## Client: 
+> Educational Institution.
 
-## Motivation
-> Build the client side of my REST API, using Hook based React Lib.
 
 ## Build status
 > Up and Running good. ;)
@@ -52,10 +51,6 @@ JUN 2021.
 ## Contribute
 > Please feel free to clone it, test it and colaborate with anything you might think will improve the app.
 
-## Credits
-> thanks to teamTreeHouse team and slack community, specially @lee, @robertm and @marie for the review and feedback before submitting.
-
-TREEHOUSE FSJS techDegree © [Diego ALvarez @doctorDAlvarez]()
 
 License (MIT)
 
