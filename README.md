@@ -22,6 +22,8 @@
 =========================================
 
 ## Features
+> React hooks.
+> Custom Hooks.
 > Manipulate back-end db with React Client.<br>
 > Protected Routes.<br>
 > Authentication - Basic Schema.<br>
